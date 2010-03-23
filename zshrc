@@ -14,7 +14,7 @@ precmd () {
 }
 RPROMPT="%1(v|%F{green}%1v%f|)"
 
-PROMPT="%B%{[31m%}%n@korngold%%%{[m%}%b "
+PROMPT="%B%{[31m%}%n@%m%%%{[m%}%b "
 RPROMPT="%1(v|%F{green}%1v%f|%{[31m%}[%~]%{[m%})"
 SPROMPT="correct: %R -> %r ? "
 
