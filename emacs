@@ -66,7 +66,7 @@
 (add-hook 'prolog-mode-hook #'(lambda () (define-key prolog-mode-map "\C-c\C-c" 'compile)))
 
 ;; ハードタブを使わない
-(setq indent-tabs-mode nil)
+;;(setq indent-tabs-mode nil)
 
 ;; dabbrevはCtrl-oで
 (global-set-key "\C-o" 'dabbrev-expand)
