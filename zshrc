@@ -40,22 +40,6 @@ emacs() {
     open -a Emacs $1
 }
 
-hgpullall() {
-    for f in $*
-    do
-	cd $f
-	echo ">> hg pull in" `pwd`
-	hg pull -u
-	cd ..
-    done
-}
+#rvm
+if [[ -s /Users/soutaro/.rvm/scripts/rvm ]] ; then source /Users/soutaro/.rvm/scripts/rvm ; fi
 
-hgpushall() {
-    for f in $*
-    do
-	cd $f
-	echo ">> hg push in" `pwd`
-	hg push
-	cd ..
-    done
-}

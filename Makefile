@@ -5,6 +5,6 @@ install:
 	ln -sf `pwd`/emacs ~/.emacs
 
 rinari:
-	git clone git@github.com:soutaro/home-search.git
-	cd rinari; git submodule init; git submodule update
-	git clone http://github.com/eschulte/rhtml.git
+	cd site-lisp; git clone http://github.com/eschulte/rinari.git
+	cd site-lisp/rinari; git submodule init; git submodule update
+	cd site-lisp; git clone http://github.com/eschulte/rhtml.git
