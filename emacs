@@ -5,7 +5,7 @@
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-dark-laptop)
-(set-frame-parameter nil 'alpha 80)
+(set-frame-parameter nil 'alpha 90)
 
 ;; auto-save-buffers
 (require 'auto-save-buffers)
@@ -61,12 +61,15 @@
 (add-hook 'rhtml-mode-hook #'(lambda () (hungry-keyboard rhtml-mode-map)))
 (add-hook 'c-mode-hook #'(lambda () (hungry-keyboard c-mode-map)))
 (add-hook 'js-mode-hook #'(lambda () (hungry-keyboard js-mode-map)))
+(add-hook 'haml-mode-hook #'(lambda () (hungry-keyboard haml-mode-map)))
 
 (add-hook 'ruby-mode-hook #'(lambda () (define-key ruby-mode-map "\C-c\C-c" 'compile)))
 (add-hook 'prolog-mode-hook #'(lambda () (define-key prolog-mode-map "\C-c\C-c" 'compile)))
 
+(add-hook 'yaml-mode-hook #'(lambda () (setq indent-tabs-mode nil)))
+
 ;; ハードタブを使わない
-;;(setq indent-tabs-mode nil)
+(setq indent-tabs-mode nil)
 
 ;; dabbrevはCtrl-oで
 (global-set-key "\C-o" 'dabbrev-expand)
@@ -112,82 +115,15 @@
 
 (require 'ottmode)
 
-(defvar navigate-point-list (cons (list) (list)))
-(defvar navigate-point-hook-list nil)
-
-(setq navigate-point-list (cons '() '()))
-
-navigate-point-list
-
-(defun navigate-point-go-forward (zip)
-  (let* ((prev-list (car zip))
-         (next-list (cdr zip)))
-    (let ((p (car next-list)))
-      (if p
-          (progn
-            (setcar zip (cons p prev-list))
-            (setcdr zip (cdr next-list))))
-      p)))
-
-(defun navigate-point-go-prev (zip)
-  (let* ((prev-list (car zip))
-         (next-list (cdr zip)))
-    (let ((p (car prev-list)))
-      (if p
-          (progn
-            (setcar zip (cdr prev-list))
-            (setcdr zip (cons p next-list))))
-      p)))
-
-(defun navigate-point-add-marker (zip marker)
-  (let* ((prev-list (car zip))
-         (next-list (cdr zip)))
-    (progn
-      (setcar zip (cons marker prev-list))
-      (dolist (x next-list) (if x (set-marker x nil)))
-      (setcdr zip nil))))
-
-(defun navigate-point-insert-point ()
-  (interactive)
-  (let ((p (point-marker)))
-    (unless (equal (caar navigate-point-list) p)
-      (navigate-point-add-marker navigate-point-list (point-marker))
-      (message "Current saved"))))
-
-
-(defun navigate-point-jump-next-point ()
-  (interactive)
-  (let ((next-point (navigate-point-go-forward navigate-point-list)))
-    (if next-point
-        (progn
-          (switch-to-buffer (marker-buffer next-point))
-          (goto-char (marker-position next-point)))
-      (message "No next point"))))
-
-(defun navigate-point-jump-prev-point ()
-  (interactive)
-  (progn
-    (unless (cdr navigate-point-list) (navigate-point-insert-point))
-    (let ((prev-point (navigate-point-go-prev navigate-point-list)))
-      (if prev-point
-          (progn
-            (switch-to-buffer (marker-buffer prev-point))
-            (goto-char (marker-position prev-point)))
-        (message "No prev point")))))
-
-(defun navigate-point-pre-command-hook ()
-  (unless (or (eq this-command 'navigate-point-jump-prev-point)
-              (eq this-command 'navigate-point-jump-next-point)
-              (eq this-command 'navigate-point-insert-point))
-    (if (memq this-command navigate-point-hook-list)
-        (navigate-point-insert-point))))
+(require 'navigate-point)
 
 (setq navigate-point-hook-list '(isearch-forward isearch-backward beginning-of-buffer end-of-buffer switch-to-buffer next-error mouse-1))
 
+(global-set-key [f6] 'navigate-point-clear-points)
 (global-set-key [f5] 'navigate-point-insert-point)
 (global-set-key [M-right] 'navigate-point-jump-next-point)
 (global-set-key [M-left] 'navigate-point-jump-prev-point)
-(add-hook 'pre-command-hook 'navigate-point-pre-command-hook)
+
 
 
 ;; Rinari
@@ -202,3 +138,14 @@ navigate-point-list
 (require 'rhtml-mode)
 (add-hook 'rhtml-mode-hook
           (lambda () (rinari-launch)))
+
+;; http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-list/40997
+
+(require 'compile)
+(add-to-list 'compilation-error-regexp-alist
+             '(".+\\[\\([^ ]+\\):\\([0-9]+\\)\\]:" 1 2))
+
+
+(require 'haml-mode)
+
+(global-set-key "\C-x\C-i" 'indent-region)

@@ -5,7 +5,7 @@ compinit
 
 autoload -Uz vcs_info
 #zstyle ':vcs_info:*' formats '(%s)-[%S@%b]'
-zstyle ':vcs_info:*' formats '%r(%s)-[%S]'
+zstyle ':vcs_info:*' formats '%r-[%S@%b]'
 zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
 precmd () {
     psvar=()
