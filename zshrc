@@ -11,6 +11,7 @@ precmd () {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+    print -Pn "\e]2;%~\a"
 }
 RPROMPT="%1(v|%F{green}%1v%f|)"
 
@@ -31,15 +32,4 @@ setopt auto_pushd
 
 alias ls='ls -F -G'
 alias ocaml='rlwrap ocaml'
-
-emacs() {
-    if [ ! -f $1 ]
-    then
-	touch $1
-    fi
-    open -a Emacs $1
-}
-
-#rvm
-if [[ -s /Users/soutaro/.rvm/scripts/rvm ]] ; then source /Users/soutaro/.rvm/scripts/rvm ; fi
 
