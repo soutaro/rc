@@ -32,4 +32,4 @@ setopt auto_pushd
 
 alias ls='ls -F -G'
 alias ocaml='rlwrap ocaml'
-
+alias tower='open -a Tower'
