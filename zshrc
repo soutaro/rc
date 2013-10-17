@@ -1,4 +1,5 @@
 source ~/.zsh_env
+fpath=(/opt/boxen/homebrew/share/zsh-completions $fpath)
 
 autoload -U compinit
 compinit
@@ -33,3 +34,6 @@ setopt auto_pushd
 alias ls='ls -F -G'
 alias ocaml='rlwrap ocaml'
 alias tower='open -a Tower'
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
