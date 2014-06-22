@@ -1,11 +1,11 @@
+source /opt/boxen/env.sh
 source ~/.zsh_env
-fpath=(/opt/boxen/homebrew/share/zsh-completions $fpath)
 
-autoload -U compinit
+fpath=(`brew --prefix`/share/zsh/site-functions `brew --prefix`/share/zsh/functions)
+autoload -Uz compinit
 compinit
 
 autoload -Uz vcs_info
-#zstyle ':vcs_info:*' formats '(%s)-[%S@%b]'
 zstyle ':vcs_info:*' formats '%r-[%S@%b]'
 zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
 precmd () {
@@ -21,21 +21,16 @@ RPROMPT="%1(v|%F{green}%1v%f|%{[31m%}[%~]%{[m%})"
 SPROMPT="correct: %R -> %r ? "
 
 HISTFILE=~/.zsh_history
-HISTSIZE=100000
-SAVEHIST=100000
+HISTSIZE=10000000
+SAVEHIST=10000000
+
 setopt hist_ignore_dups
 setopt share_history
 setopt nohashall
+setopt auto_pushd
 
 bindkey -e
-
-setopt auto_pushd
 
 alias ls='ls -F -G'
 alias ocaml='rlwrap ocaml'
 alias tower='open -a Tower'
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-source /opt/boxen/env.sh
