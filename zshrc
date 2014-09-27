@@ -1,4 +1,3 @@
-source /opt/boxen/env.sh
 source ~/.zsh_env
 
 fpath=(`brew --prefix`/share/zsh/site-functions `brew --prefix`/share/zsh/functions)
@@ -34,3 +33,13 @@ bindkey -e
 alias ls='ls -F -G'
 alias ocaml='rlwrap ocaml'
 alias tower='open -a Tower'
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+# added by travis gem
+[ -f /Users/soutaro/.travis/travis.sh ] && source /Users/soutaro/.travis/travis.sh
+
+eval "$(rbenv init -)"
+
+rehash
