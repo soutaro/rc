@@ -34,7 +34,7 @@ alias ls='ls -F -G'
 alias ocaml='rlwrap ocaml'
 alias tower='open -a Tower'
 alias mine='open -a RubyMine'
-alias xcode='find . -name *.xcworkspace | head -1 | xargs open'
+alias xcode='find . -name *.xcworkspace -maxdepth 1 | head -1 | xargs open'
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
