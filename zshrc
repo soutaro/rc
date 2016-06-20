@@ -35,6 +35,7 @@ alias ocaml='rlwrap ocaml'
 alias tower='open -a Tower'
 alias mine='open -a RubyMine'
 alias xcode='find . -name *.xcworkspace -maxdepth 1 | head -1 | xargs open'
+alias be='bundle exec'
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
